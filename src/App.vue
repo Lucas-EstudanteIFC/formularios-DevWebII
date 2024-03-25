@@ -12,11 +12,8 @@ const hobbies = ref([])
 const lingProg = ref([])
 const bio = ref('')
 
-let troca = false
+let troca = ref(false);
 
-function cadastroRetorno() {
-  troca = !troca
-}
 </script>
 
 <template>
@@ -92,7 +89,7 @@ function cadastroRetorno() {
 
       <label for="bio">Biografia</label>
       <input type="text" id="bio" v-model="bio" />
-      <button @click="cadastroRetorno"></button>
+      <button @click="troca"></button>
     </form>
 
     <div v-if="(troca = true)">
