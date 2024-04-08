@@ -8,21 +8,86 @@ const data = ref('')
 const endereco = ref('')
 const cidade = ref('')
 const estado = ref('')
-const hobbies = ref([])
-const lingProg = ref([])
+const hobbies = ref([
+  {
+    id: 1,
+    nome: 'Escrever'
+  },
+  {
+    id: 2,
+    nome: 'Ler'
+  },
+  {
+    id: 3,
+    nome: 'Esportes'
+  },
+  {
+    id: 4,
+    nome: 'Passeios'
+  },
+  {
+    id: 5,
+    nome: 'Colecionar'
+  },
+  {
+    id: 6,
+    nome: 'Video-games'
+  }
+])
+const lingProg = ref([  {
+    id: 1,
+    nome: 'Python'
+  },
+  {
+    id: 2,
+    nome: 'Javascript'
+  },
+  {
+    id: 3,
+    nome: 'SQL'
+  },
+  {
+    id: 4,
+    nome: 'CSS'
+  },
+  {
+    id: 5,
+    nome: 'C#'
+  },
+  {
+    id: 6,
+    nome: 'HTML'
+  }])
 const bio = ref('')
+const mostrarResultado = ref(false)
 
-let troca = ref(false);
-
+function enviarFormulario() {
+  if (
+    nome.value == '' ||
+    email.value == '' ||
+    senha.value == '' ||
+    data.value == '' ||
+    endereco.value == '' ||
+    cidade.value == '' ||
+    estado.value == '' ||
+    hobbies.value == [] ||
+    lingProg.value == []
+  ) {
+    alert(`Campo vazio detectado. Por favor, preencha-o`)
+    return
+  } else {
+    mostrarResultado.value = !mostrarResultado.value
+  }
+}
 </script>
 
 <template>
   <header><h1>Formulário de Usuário</h1></header>
   <hr />
   <main>
-    <form action="">
+    <form @submit.prevent="enviarFormulario" v-if="!mostrarResultado" class="formulario container">
       <label for="nome">Nome</label>
-      <input type="text" id="nome" v-model="nome" minlength="30" />
+      <input type="text" id="nome" v-model="nome" minlength="10" />
 
       <label for="email">Email</label>
       <input type="email" id="email" v-model="email" />
@@ -72,34 +137,63 @@ let troca = ref(false);
       </select>
 
       <label for="">Hobbies</label>
-      <input type="checkbox" id="hobbies" value="hobbie1" v-model="hobbies" />Hobbie 1
-      <input type="checkbox" id="hobbies" value="hobbie2" v-model="hobbies" />Hobbie 2
-      <input type="checkbox" id="hobbies" value="hobbie3" v-model="hobbies" />Hobbie 3
-      <input type="checkbox" id="hobbies" value="hobbie4" v-model="hobbies" />Hobbie 4
-      <input type="checkbox" id="hobbies" value="hobbie5" v-model="hobbies" />Hobbie 5
-      <input type="checkbox" id="hobbies" value="hobbie6" v-model="hobbies" />Hobbie 6
+      <div v-for="hobby in hobbies" :key="hobby.id">
+        <input type="checkbox" v-model="hobbies" :value="hobby.id" />
+        {{ hobby.nome }}
+      </div>
 
       <label for="">Linguagens de Programação</label>
-      <input type="checkbox" id="ling" v-model="lingProg" />
-      <input type="checkbox" id="ling" v-model="lingProg" />
-      <input type="checkbox" id="ling" v-model="lingProg" />
-      <input type="checkbox" id="ling" v-model="lingProg" />
-      <input type="checkbox" id="ling" v-model="lingProg" />
-      <input type="checkbox" id="ling" v-model="lingProg" />
+      <div v-for="progs in lingProg" :key="progs.id">
+        <input type="checkbox" v-model="lingProg" :value="progs.id" />
+        {{ progs.nome }}</div>
 
-      <label for="bio">Biografia</label>
-      <input type="text" id="bio" v-model="bio" />
-      <button @click="troca"></button>
+      <label for="">Biografia</label>
+      <input type="text" id="bio" v-model="bio"/>
+      <button @submit="enviarFormulario"></button>
     </form>
 
-    <div v-if="(troca = true)">
+    <div v-else>
       <p>Nome: {{ nome }}</p>
       <p>Email: {{ email }}</p>
       <p>Senha: {{ senha }}</p>
       <p>Data de Nascimento: {{ data }}</p>
       <p>Endereço: {{ endereco }}</p>
       <p>Cidade: {{ cidade }}</p>
-      <p>Estado {{ estado }}</p>
+      <p>
+        Estado
+        {{
+          estado
+            .replace('AC', 'Acre')
+            .replace('AL', 'Alagoas')
+            .replace('AP', 'Amapá')
+            .replace('AM', 'Amazonas')
+            .replace('BA', 'Bahia')
+            .replace('CE', 'Ceará')
+            .replace('DF', 'Distrito Federal')
+            .replace('ES', 'Espírito Santo')
+            .replace('GO', 'Goiás')
+            .replace('MA', 'Maranhão')
+            .replace('MT', 'Mato')
+            .replace('MS', 'Mato Grosso do Sul')
+            .replace('MG', 'Minas Gerais')
+            .replace('PA', 'Pará')
+            .replace('PR', 'Paraná')
+            .replace('PB', 'Paraíba')
+            .replace('PE', 'Pernambuco')
+            .replace('PI', 'Piauí')
+            .replace('RJ', 'Rio de Janeiro')
+            .replace('RN', 'Rio Grande do Norte')
+            .replace('RS', 'Rio Grande do Sul')
+            .replace('RO', 'Rondônia')
+            .replace('RR', 'Roraima')
+            .replace('SC', 'Santa Catarina')
+            .replace('SP', 'São Paulo')
+            .replace('SE', 'Sergipe')
+            .replace('TO', 'Tocantins')
+        }}
+      </p>
+      <p>Hobbies: {{ hobbies }}</p>
+      <p>Linguagens de Programação: {{ lingProg }}</p>
     </div>
   </main>
 </template>
