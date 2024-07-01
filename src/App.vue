@@ -1,40 +1,43 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
-const nome = ref('')
-const email = ref('')
-const senha = ref('')
-const data = ref('')
-const endereco = ref('')
-const cidade = ref('')
-const estado = ref('')
-const hobbies = ref([
+const mostrarResultado = ref(false);
+
+const nome = ref('');
+const email = ref('');
+const senha = ref('');
+const data = ref('');
+const endereco = ref('');
+const cidade = ref('');
+const estado = ref('');
+const listaHobbies = [
   {
-    id: 1,
-    nome: 'Escrever'
+    nome: 'Escrever',
+    id: 1
   },
   {
-    id: 2,
-    nome: 'Ler'
+    nome: 'Ler',
+    id: 2
   },
   {
-    id: 3,
-    nome: 'Esportes'
+    nome: 'Esportes',
+    id: 3
   },
   {
-    id: 4,
-    nome: 'Passeios'
+    nome: 'Passeios',
+    id: 4
   },
   {
-    id: 5,
-    nome: 'Colecionar'
+    nome: 'Colecionar',
+    id: 5
   },
   {
-    id: 6,
-    nome: 'Video-games'
+    nome: 'Video-games',
+    id: 6
   }
-])
-const lingProg = ref([  {
+];
+const listaProg = [
+  {
     id: 1,
     nome: 'Python'
   },
@@ -57,9 +60,23 @@ const lingProg = ref([  {
   {
     id: 6,
     nome: 'HTML'
-  }])
-const bio = ref('')
-const mostrarResultado = ref(false)
+  }
+];
+
+const hobbies = reactive([
+  {
+    nome: '',
+    id: 0
+  }
+]);
+const lingProg = reactive([
+  {
+    nome: '',
+    id: 0
+  }
+]);
+const bio = ref('');
+
 
 function enviarFormulario() {
   if (
@@ -72,20 +89,17 @@ function enviarFormulario() {
     estado.value == '' ||
     hobbies.value == [] ||
     lingProg.value == []
-  ) {
-    alert(`Campo vazio detectado. Por favor, preencha-o`)
-    return
-  } else {
-    mostrarResultado.value = !mostrarResultado.value
-  }
-}
+  ) { alert(`Campo vazio detectado. Por favor, preencha-o`) 
+    return } 
+    else { mostrarResultado.value = !mostrarResultado.value}
+};
 </script>
 
 <template>
   <header><h1>Formulário de Usuário</h1></header>
   <hr />
   <main>
-    <form @submit.prevent="enviarFormulario" v-if="!mostrarResultado" class="formulario container">
+    <form @submit.prevent="enviarFormulario" v-if="!mostrarResultado" class="">
       <label for="nome">Nome</label>
       <input type="text" id="nome" v-model="nome" minlength="10" />
 
@@ -137,30 +151,31 @@ function enviarFormulario() {
       </select>
 
       <label for="">Hobbies</label>
-      <div v-for="hobby in hobbies" :key="hobby.id">
+      <template v-for="hobby in listaHobbies" :key="hobby.id">
         <input type="checkbox" v-model="hobbies" :value="hobby.id" />
         {{ hobby.nome }}
-      </div>
+      </template>
 
       <label for="">Linguagens de Programação</label>
-      <div v-for="progs in lingProg" :key="progs.id">
+      <template v-for="progs in listaProg" :key="progs.id">
         <input type="checkbox" v-model="lingProg" :value="progs.id" />
-        {{ progs.nome }}</div>
+        {{ progs.nome }}
+      </template>
 
       <label for="">Biografia</label>
-      <input type="text" id="bio" v-model="bio"/>
-      <button @submit="enviarFormulario"></button>
+      <input type="text" id="bio" v-model="bio" width="100" />
+      <button @submit="enviarFormulario">Enviar Formulario</button>
     </form>
 
     <div v-else>
-      <p>Nome: {{ nome }}</p>
-      <p>Email: {{ email }}</p>
-      <p>Senha: {{ senha }}</p>
-      <p>Data de Nascimento: {{ data }}</p>
-      <p>Endereço: {{ endereco }}</p>
-      <p>Cidade: {{ cidade }}</p>
-      <p>
-        Estado
+      <label>Nome: {{ nome }}</label>
+      <label>Email: {{ email }}</label>
+      <label>Senha: {{ senha }}</label>
+      <label>Data de Nascimento: {{ data }}</label>
+      <label>Endereço: {{ endereco }}</label>
+      <label>Cidade: {{ cidade }}</label>
+      <label>
+        Estado:
         {{
           estado
             .replace('AC', 'Acre')
@@ -191,15 +206,10 @@ function enviarFormulario() {
             .replace('SE', 'Sergipe')
             .replace('TO', 'Tocantins')
         }}
-      </p>
-      <p>Hobbies: {{ hobbies }}</p>
-      <p>Linguagens de Programação: {{ lingProg }}</p>
+      </label>
+      <label>Hobbies: {{ hobbies.nome }}</label>
+      <label>Linguagens de Programação: {{ lingProg.nome }}</label>
+      <button @click="enviarFormulario">Retornar a página</button>
     </div>
   </main>
 </template>
-
-<style scoped>
-form > * {
-  display: block;
-}
-</style>
