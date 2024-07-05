@@ -67,7 +67,9 @@ function enviarFormulario() {
     data.value == '' ||
     endereco.value == '' ||
     cidade.value == '' ||
-    estados.value == ''
+    estados.value == '' ||
+    hob.value == [] ||
+    lingProg.value == []
   ) {
     alert(`Campo vazio detectado. Por favor, preencha-o`)
     return
@@ -85,29 +87,29 @@ function enviarFormulario() {
   <main>
     <form
       @submit.prevent="enviarFormulario"
-      class="m-2 bg-slate-400 border-2 border-black flex flex-col flex-wrap text-lg shadow-md shadow-inner"
+      class="m-auto bg-slate-400 border-2 border-black flex flex-col flex-wrap text-lg shadow-md shadow-inner size-6/12 p-10 rounded-md"
     >
       <template v-if="!mostrarResultado">
         <label class="" for="nome">Nome:</label>
-        <input type="text" id="nome" v-model="nome" minlength="10" />
+        <input class="rounded-md p-1" type="text" id="nome" v-model="nome" minlength="10" />
 
         <label for="email">Email:</label>
-        <input type="email" id="email" v-model="email" />
+        <input class="rounded-md p-1" type="email" id="email" v-model="email" />
 
         <label for="senha">Senha:</label>
-        <input type="password" id="senha" v-model="senha" minlength="7" />
+        <input class="rounded-md p-1" type="password" id="senha" v-model="senha" minlength="7" />
 
         <label for="data">Data de Nascimento:</label>
-        <input type="date" id="data" v-model="data" />
+        <input class="rounded-md p-1" type="date" id="data" v-model="data" />
 
         <label for="endereco">Endereço:</label>
-        <input type="number" id="endereco" v-model="endereco" />
+        <input class="rounded-md p-1" type="number" id="endereco" v-model="endereco" />
 
         <label for="cidade">Cidade:</label>
-        <input type="text" id="cidade" v-model="cidade" />
+        <input class="rounded-md p-1" type="text" id="cidade" v-model="cidade" />
 
         <label for="estado">Estado:</label>
-        <select name="estados" id="estado" v-model="estado">
+        <select class="rounded-md p-1" name="estados" id="estado" v-model="estado">
           <option disabled value=""></option>
           <option v-for="(estado, index) in estados" :key="index" :value="estado.id">
             {{ estado.name }}
@@ -115,19 +117,20 @@ function enviarFormulario() {
         </select>
 
         <label for="">Hobbies:</label>
-        <template v-for="hobby in listaHobbies" :key="hobby.id">
-          <input type="checkbox" v-model="hob" :value="hobby.nome" />
+        <div v-for="hobby in listaHobbies" :key="hobby.id">
           {{ hobby.nome }}
-        </template>
+          <input type="checkbox" v-model="hob" :value="hobby.nome" />
+          
+        </div>
 
         <label for="">Linguagens de Programação:</label>
-        <template v-for="progs in listaProg" :key="progs.id">
-          <input type="radio" v-model="lingProg" :value="progs.nome" />
+        <div v-for="progs in listaProg" :key="progs.id">
           {{ progs.nome }}
-        </template>
+          <input type="radio" v-model="lingProg" :value="progs.nome" />
+        </div>
 
         <label for="">Biografia:</label>
-        <input type="text" id="bio" v-model="bio" width="100" />
+        <input class="rounded-md p-1" type="text" id="bio" v-model="bio" width="100" />
         <button @submit="enviarFormulario">Enviar Formulario</button>
       </template>
 
