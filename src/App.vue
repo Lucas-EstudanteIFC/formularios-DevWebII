@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 
 const mostrarResultado = ref(false);
 
@@ -9,82 +9,55 @@ const senha = ref('');
 const data = ref('');
 const endereco = ref('');
 const cidade = ref('');
-const estado = ref('');
+const hob = ref([]);
+const lingProg = ref([]);
+const estados = [
+  { id: 'Acre', name: 'AC' },
+  { id: 'Alagoas', name: 'AL' },
+  { id: 'Amapá', name: 'AP' },
+  { id: 'Amazonas', name: 'AM' },
+  { id: 'Bahia', name: 'BA' },
+  { id: 'Ceará', name: 'CE' },
+  { id: 'Distrito Federal', name: 'DF' },
+  { id: 'Espírito Santo', name: 'ES' },
+  { id: 'Goiás', name: 'GO' },
+  { id: 'Maranhão', name: 'MA' },
+  { id: 'Mato Grosso', name: 'MT' },
+  { id: 'Mato Grosso do Su', name: 'MS' },
+  { id: 'Minas Gerais', name: 'MG' },
+  { id: 'Pará', name: 'PA' },
+  { id: 'Paraíba', name: 'PB' },
+  { id: 'Paraná', name: 'PR' },
+  { id: 'Pernambuco', name: 'PE' },
+  { id: 'Piauí', name: 'PI' },
+  { id: 'Rio de Janeiro', name: 'RJ' },
+  { id: 'Rio Grande do Norte', name: 'RN' },
+  { id: 'Rio Grande do Sul', name: 'RS' },
+  { id: 'Rondônia', name: 'RO' },
+  { id: 'Roraima', name: 'RR' },
+  { id: 'Santa Catarina ', name: 'SC' },
+  { id: 'São Paulo', name: 'SP' },
+  { id: 'Sergipe', name: 'SE' },
+  { id: 'Tocantins', name: 'TO' }
+]
 const listaHobbies = [
-  {
-    nome: 'Escrever',
-    id: 1
-  },
-  {
-    nome: 'Ler',
-    id: 2
-  },
-  {
-    nome: 'Esportes',
-    id: 3
-  },
-  {
-    nome: 'Passeios',
-    id: 4
-  },
-  {
-    nome: 'Colecionar',
-    id: 5
-  },
-  {
-    nome: 'Video-games',
-    id: 6
-  }
-];
+  { nome: 'Escrever', id: 1 },
+  { nome: 'Ler', id: 2 },
+  { nome: 'Esportes', id: 3 },
+  { nome: 'Passeios', id: 4 },
+  { nome: 'Colecionar', id: 5 },
+  { nome: 'Video-games', id: 6 }
+]
 const listaProg = [
-  {
-    id: 1,
-    nome: 'Python',
-    valor: false
-  },
-  {
-    id: 2,
-    nome: 'Javascript',
-    valor: false
-  },
-  {
-    id: 3,
-    nome: 'SQL',
-    valor: false
-  },
-  {
-    id: 4,
-    nome: 'CSS',
-    valor: false
-  },
-  {
-    id: 5,
-    nome: 'C#',
-    valor: false
-  },
-  {
-    id: 6,
-    nome: 'HTML',
-    valor: false
-  }
-];
+  { id: 1, nome: 'Python' },
+  { id: 2, nome: 'Javascript' },
+  { id: 3, nome: 'SQL' },
+  { id: 4, nome: 'CSS' },
+  { id: 5, nome: 'C#' },
+  { id: 6, nome: 'HTML' }
+]
 
-const hobbies = reactive([
-  {
-    nome: '',
-    id: 0,
-    valor: 0
-  }
-]);
-const lingProg = reactive([
-  {
-    nome: '',
-    id: 0,
-    valor: 0
-  }
-]);
-const bio = ref('');
-
+const bio = ref('')
 
 function enviarFormulario() {
   if (
@@ -94,34 +67,26 @@ function enviarFormulario() {
     data.value == '' ||
     endereco.value == '' ||
     cidade.value == '' ||
-    estado.value == ''
+    estados.value == ''
   ) {
     alert(`Campo vazio detectado. Por favor, preencha-o`)
     return
+  } else {
+    mostrarResultado.value = !mostrarResultado.value
   }
-  else {
-    for (const hobby of hobbies) {
-      if (hobby.valor == true) {hobbies.push(hobby.nome)};
-
-    }
-    for (const progs of listaProg) {
-      if (progs.valor == true) {lingProg.push(progs.nome)};
-      
-    }
-    mostrarResultado.value = !mostrarResultado.value 
-     
-  }
-};
+}
 </script>
 
 <template>
-  <header class="font-bold text-xl">
+  <header class="font-bold text-xl text-center">
     <h1>Formulário de Usuário</h1>
   </header>
   <hr />
   <main>
-    <form @submit.prevent="enviarFormulario"
-      class="m-2 bg-slate-100 border-2 border-black flex flex-col flex-wrap text-lg shadow-md shadow-inner">
+    <form
+      @submit.prevent="enviarFormulario"
+      class="m-2 bg-slate-400 border-2 border-black flex flex-col flex-wrap text-lg shadow-md shadow-inner"
+    >
       <template v-if="!mostrarResultado">
         <label class="" for="nome">Nome:</label>
         <input type="text" id="nome" v-model="nome" minlength="10" />
@@ -143,53 +108,27 @@ function enviarFormulario() {
 
         <label for="estado">Estado:</label>
         <select name="estados" id="estado" v-model="estado">
-          <option value=""></option>
-          <option value="AC">AC</option>
-          <option value="AL">AL</option>
-          <option value="AP">AP</option>
-          <option value="AM">AM</option>
-          <option value="BA">BA</option>
-          <option value="CE">CE</option>
-          <option value="DF">DF</option>
-          <option value="ES">ES</option>
-          <option value="GO">GO</option>
-          <option value="MA">MA</option>
-          <option value="MT">MT</option>
-          <option value="MS">MS</option>
-          <option value="MG">MG</option>
-          <option value="PA">PA</option>
-          <option value="PB">PB</option>
-          <option value="PR">PR</option>
-          <option value="PE">PE</option>
-          <option value="PI">PI</option>
-          <option value="RJ">RJ</option>
-          <option value="RN">RN</option>
-          <option value="RS">RS</option>
-          <option value="RO">RO</option>
-          <option value="RR">RR</option>
-          <option value="SC">SC</option>
-          <option value="SP">SP</option>
-          <option value="SE">SE</option>
-          <option value="TO">TO</option>
+          <option disabled value=""></option>
+          <option v-for="(estado, index) in estados" :key="index" :value="estado.id">
+            {{ estado.name }}
+          </option>
         </select>
 
         <label for="">Hobbies:</label>
         <template v-for="hobby in listaHobbies" :key="hobby.id">
-          <input type="checkbox" v-model="hobbies" :value="hobby.id" />
+          <input type="checkbox" v-model="hob" :value="hobby.nome" />
           {{ hobby.nome }}
         </template>
 
         <label for="">Linguagens de Programação:</label>
         <template v-for="progs in listaProg" :key="progs.id">
-          <input type="checkbox" v-model="lingProg" :value="progs.id" />
+          <input type="radio" v-model="lingProg" :value="progs.nome" />
           {{ progs.nome }}
-
         </template>
 
         <label for="">Biografia:</label>
         <input type="text" id="bio" v-model="bio" width="100" />
         <button @submit="enviarFormulario">Enviar Formulario</button>
-
       </template>
 
       <template v-else>
@@ -232,11 +171,10 @@ function enviarFormulario() {
               .replace('TO', 'Tocantins')
           }}
         </label>
-        <label>Hobbies: {{ hobbies }}</label>
+        <label>Hobbies: {{ hob }}</label>
         <label>Linguagens de Programação: {{ lingProg }}</label>
         <button @click="enviarFormulario">Retornar a página</button>
       </template>
     </form>
   </main>
-
 </template>
