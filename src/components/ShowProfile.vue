@@ -1,6 +1,8 @@
-<script setup></script>
+<script setup>
+
+</script>
 <template>
-    <form>
+    <form class="m-auto bg-slate-400 border-2 border-black flex flex-col flex-wrap text-lg shadow-md shadow-inner size-6/12 p-10 rounded-md">
         <label>Nome: {{ nome }}</label>
         <label>Email: {{ email }}</label>
         <label>Senha: {{ senha }}</label>
@@ -42,7 +44,7 @@
         </label>
         <label>Hobbies: {{ hob }}</label>
         <label>Linguagens de Programação: {{ lingProg }}</label>
-        <button @click="enviarFormulario">Retornar a página</button>
+        <button>Retornar a página</button>
     </form>
 </template>
 <style scoped>
