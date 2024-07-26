@@ -16,13 +16,13 @@ function voltar() {
 <template>
     <div class="m-auto bg-slate-400 border-2 border-black flex flex-col flex-wrap text-lg shadow-md shadow-inner size-6/12 p-10 rounded-md">
       <h1>Resultado</h1>
-      <p>{{ resultado.nome }}</p>
-      <p>{{ resultado.email }}</p>
-      <p>{{ resultado.senha }}</p>
-      <p>{{ resultado.dataNascimento }}</p>
-      <p>{{ resultado.endereco }}</p>
-      <p>{{ resultado.cidade }}</p>
-      <p>{{ resultado.estado }}</p>
+      <p>Nome: {{ resultado.nome }}</p>
+      <p>Email: {{ resultado.email }}</p>
+      <p>Senha{{ resultado.senha }}</p>
+      <p>Data de Nascimento{{ resultado.dataNascimento }}</p>
+      <p>Endereço: {{ resultado.endereco }}</p>
+      <p>Cidade: {{ resultado.cidade }}</p>
+      <p>Estado: {{ resultado.estado }}</p>
       <p>{{ resultado.hobby }}</p>
       <p>{{ resultado.lingProg }}</p>
       <p>{{ resultado.bio }}</p>
