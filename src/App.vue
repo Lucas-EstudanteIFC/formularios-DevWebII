@@ -11,6 +11,8 @@ function salvar(dados) {
   troca.value = !troca.value;
 }
 
+
+
 </script>
 
 <template >
@@ -18,6 +20,6 @@ function salvar(dados) {
     <h1>Perfil de Usuário</h1>
   </header>
 
-  <profile-edition @salvar="salvar"/>
-  <show-profile :resultado="resultado" />
+  <profile-edition v-if="troca == false" @salvar="salvar"/>
+  <show-profile v-if="troca == true" :resultado="resultado"/>
 </template>

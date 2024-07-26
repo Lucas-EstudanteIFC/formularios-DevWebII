@@ -63,7 +63,7 @@ const listaProg = [
     { id: 6, nome: 'HTML' }
 ];
 
-const hob = ref([]);
+const hob = ref
 const lingProg = ref([]);
 
 
@@ -71,7 +71,7 @@ const lingProg = ref([]);
 <template>
     <form class="m-auto bg-slate-400 border-2 border-black flex flex-col flex-wrap text-lg shadow-md shadow-inner size-6/12 p-10 rounded-md" @submit.prevent="$emit('salvar', {...user})">
             <label class="" for="nome">Nome:</label>
-            <input class="rounded-md p-1" type="text" id="nome" v-model="user.nome" minlength="10" />
+            <input class="rounded-md p-1" type="text" id="nome" v-model="user.nome" minlength="3" />
 
             <label for="email">Email:</label>
             <input class="rounded-md p-1" type="email" id="email" v-model="user.email" />
@@ -96,10 +96,10 @@ const lingProg = ref([]);
                 </option>
             </select>
 
-            <label for="">Hobbies:</label>
-            <div v-for="hobby in listaHobbies" :key="hobby.id">
+            <label for="{{ hobby.id }}">Hobbies:</label>
+            <div v-for="hobby in listaHobbies">
                 {{ hobby.nome }}
-                <input type="checkbox" v-model="hob" :value="hobby.nome" />
+                <input type="checkbox" v-model="hob" :key="hobby.id" :value="hobby.nome" />
 
             </div>
 
