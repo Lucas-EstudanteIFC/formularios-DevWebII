@@ -1,43 +1,50 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 
-const nome = ref('');
-const email = ref('');
-const senha = ref('');
-const data = ref('');
-const endereco = ref('');
-const cidade = ref('');
-const hob = ref([]);
-const lingProg = ref([]);
+const user = reactive ({
+    nome: "",
+    email: "",
+    senha: "",
+    dataNascimento: "",
+    endereco: "",
+    cidade: "",
+    estado: "",
+    hobby: "",
+    lingProg: "",
+    bio: "",
+
+});
+
 const estados = [
-    { id: 'Acre', name: 'AC' },
-    { id: 'Alagoas', name: 'AL' },
-    { id: 'Amapá', name: 'AP' },
-    { id: 'Amazonas', name: 'AM' },
-    { id: 'Bahia', name: 'BA' },
-    { id: 'Ceará', name: 'CE' },
-    { id: 'Distrito Federal', name: 'DF' },
-    { id: 'Espírito Santo', name: 'ES' },
-    { id: 'Goiás', name: 'GO' },
-    { id: 'Maranhão', name: 'MA' },
-    { id: 'Mato Grosso', name: 'MT' },
-    { id: 'Mato Grosso do Su', name: 'MS' },
-    { id: 'Minas Gerais', name: 'MG' },
-    { id: 'Pará', name: 'PA' },
-    { id: 'Paraíba', name: 'PB' },
-    { id: 'Paraná', name: 'PR' },
-    { id: 'Pernambuco', name: 'PE' },
-    { id: 'Piauí', name: 'PI' },
-    { id: 'Rio de Janeiro', name: 'RJ' },
-    { id: 'Rio Grande do Norte', name: 'RN' },
-    { id: 'Rio Grande do Sul', name: 'RS' },
-    { id: 'Rondônia', name: 'RO' },
-    { id: 'Roraima', name: 'RR' },
-    { id: 'Santa Catarina ', name: 'SC' },
-    { id: 'São Paulo', name: 'SP' },
-    { id: 'Sergipe', name: 'SE' },
-    { id: 'Tocantins', name: 'TO' }
-]
+    { name: 'Acre', id: 'AC' },
+    { name: 'Alagoas', id: 'AL' },
+    { name: 'Amapá', id: 'AP' },
+    { name: 'Amazonas', id: 'AM' },
+    { name: 'Bahia', id: 'BA' },
+    { name: 'Ceará', id: 'CE' },
+    { name: 'Distrito Federal', id: 'DF' },
+    { name: 'Espírito Santo', id: 'ES' },
+    { name: 'Goiás', id: 'GO' },
+    { name: 'Maranhão', id: 'MA' },
+    { name: 'Mato Grosso', id: 'MT' },
+    { name: 'Mato Grosso do Su', id: 'MS' },
+    { name: 'Minas Gerais', id: 'MG' },
+    { name: 'Pará', id: 'PA' },
+    { name: 'Paraíba', id: 'PB' },
+    { name: 'Paraná', id: 'PR' },
+    { name: 'Pernambuco', id: 'PE' },
+    { name: 'Piauí', id: 'PI' },
+    { name: 'Rio de Janeiro', id: 'RJ' },
+    { name: 'Rio Grande do Norte', id: 'RN' },
+    { name: 'Rio Grande do Sul', id: 'RS' },
+    { name: 'Rondônia', id: 'RO' },
+    { name: 'Roraima', id: 'RR' },
+    { name: 'Santa Catarina ', id: 'SC' },
+    { name: 'São Paulo', id: 'SP' },
+    { name: 'Sergipe', id: 'SE' },
+    { name: 'Tocantins', id: 'TO' }
+];
+
 const listaHobbies = [
     { nome: 'Escrever', id: 1 },
     { nome: 'Ler', id: 2 },
@@ -45,7 +52,8 @@ const listaHobbies = [
     { nome: 'Passeios', id: 4 },
     { nome: 'Colecionar', id: 5 },
     { nome: 'Video-games', id: 6 }
-]
+];
+
 const listaProg = [
     { id: 1, nome: 'Python' },
     { id: 2, nome: 'Javascript' },
@@ -53,54 +61,38 @@ const listaProg = [
     { id: 4, nome: 'CSS' },
     { id: 5, nome: 'C#' },
     { id: 6, nome: 'HTML' }
-]
+];
 
-const bio = ref('')
-
-// [function enviarFormulario() {
-//     if (
-//         nome.value == '' ||
-//         email.value == '' ||
-//         senha.value == '' ||
-//         data.value == '' ||
-//         endereco.value == '' ||
-//         cidade.value == '' ||
-//         estados.value == '' ||
-//         hob.value == [] ||
-//         lingProg.value == []
-//     ) {
-//         alert(`Campo vazio detectado. Por favor, preencha-o`);
-//         return
-//     }
-// }]
+const hob = ref([]);
+const lingProg = ref([]);
 
 
 </script>
 <template>
-    <form class="m-auto bg-slate-400 border-2 border-black flex flex-col flex-wrap text-lg shadow-md shadow-inner size-6/12 p-10 rounded-md">
+    <form class="m-auto bg-slate-400 border-2 border-black flex flex-col flex-wrap text-lg shadow-md shadow-inner size-6/12 p-10 rounded-md" @submit.prevent="$emit('salvar', {...user})">
             <label class="" for="nome">Nome:</label>
-            <input class="rounded-md p-1" type="text" id="nome" v-model="nome" minlength="10" />
+            <input class="rounded-md p-1" type="text" id="nome" v-model="user.nome" minlength="10" />
 
             <label for="email">Email:</label>
-            <input class="rounded-md p-1" type="email" id="email" v-model="email" />
+            <input class="rounded-md p-1" type="email" id="email" v-model="user.email" />
 
             <label for="senha">Senha:</label>
-            <input class="rounded-md p-1" type="password" id="senha" v-model="senha" minlength="7" />
+            <input class="rounded-md p-1" type="password" id="senha" v-model="user.senha" minlength="7" />
 
             <label for="data">Data de Nascimento:</label>
-            <input class="rounded-md p-1" type="date" id="data" v-model="data" />
+            <input class="rounded-md p-1" type="date" id="data" v-model="user.dataNascimento" />
 
             <label for="endereco">Endereço:</label>
-            <input class="rounded-md p-1" type="number" id="endereco" v-model="endereco" />
+            <input class="rounded-md p-1" type="number" id="endereco" v-model="user.endereco" />
 
             <label for="cidade">Cidade:</label>
-            <input class="rounded-md p-1" type="text" id="cidade" v-model="cidade" />
+            <input class="rounded-md p-1" type="text" id="cidade" v-model="user.cidade" />
 
             <label for="estado">Estado:</label>
-            <select class="rounded-md p-1" name="estados" id="estado" v-model="estado">
+            <select class="rounded-md p-1" name="estados" id="estado" v-model="user.estado">
                 <option disabled value=""></option>
-                <option v-for="(estado, index) in estados" :key="index" :v@submit="enviarFormulario" value="estado.id">
-                    {{ estado.name }}
+                <option v-for="estado in estados" :value="estado.name">
+                    {{ estado.id }}
                 </option>
             </select>
 
@@ -118,8 +110,8 @@ const bio = ref('')
             </div>
 
             <label for="">Biografia:</label>
-            <input class="rounded-md p-1" type="text" id="bio" v-model="bio" width="100" />
-            <button @click="$emit('salvar', {...ProfileEditionVue})">Enviar Formulario</button>
+            <input class="rounded-md p-1" type="text" id="bio" v-model="user.bio" width="100" />
+            <button type="submit" >Enviar Formulario</button>
     </form>
 </template>
 <style scoped></style>
